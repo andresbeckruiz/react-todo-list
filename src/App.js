@@ -21,7 +21,7 @@ export default class App extends Component {
     if (this.state.item.length !== 0) {
     const newItem = {
       id: this.state.id,
-      item: this.state.item
+      title: this.state.item
     }
     const updatedItems =[...this.state.items,newItem]
     this.setState({
