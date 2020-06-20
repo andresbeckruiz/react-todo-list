@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {v4 as uuidv4} from 'uuid';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
+
 // showing vs-code github setup
 export default class App extends Component {
   state = {
@@ -18,7 +19,6 @@ export default class App extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    if (this.state.item.length !== 0) {
     const newItem = {
       id: this.state.id,
       title: this.state.item
@@ -30,17 +30,29 @@ export default class App extends Component {
       id:uuidv4(),
       editItem: false
     },() => console.log(this.state))
-  }
+  
 
   }
   clearList = () => {
-    console.log('clear list');
+    this.setState({
+      items:[]
+    })
   }
   handleDelete = (id) => {
-    console.log(`handle delete ${id}`);
+    const filteredItems = this.state.items.filter(item=>item.id !== id);
+    this.setState({
+      items:filteredItems
+    })
   }
   handleEdit = (id) => {
-    console.log(`handle edit ${id}`);
+    const filteredItems = this.state.items.filter(item=>item.id !== id);
+    const selectedItem = this.state.items.find(item => item.id === id);
+    this.setState({
+      items:filteredItems,
+      item:selectedItem.title,
+      id:id,
+      editItem:true
+    })
   }
   render() {
     return (
